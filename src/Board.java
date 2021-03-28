@@ -1,3 +1,5 @@
+//uses GridWorld
+
 import info.gridworld.actor.ActorWorld;
 import info.gridworld.actor.Rock;
 import info.gridworld.grid.Location;
@@ -9,6 +11,10 @@ import java.util.Scanner;
 
 public class Board
 {
+
+	private final static int BOARDERSTART = 0;
+	private final static int BOARDEREND = 9;
+	
     public static void main(String[] args)
     {
         gameOver();   
@@ -21,9 +27,9 @@ public class Board
     {
     	ActorWorld world = new ActorWorld();
     	
-    	for (int iX = 0; iX < 10; iX+=9)
+    	for (int iX = BOARDERSTART; iX < 10; iX+=BOARDEREND)
     	{
-    		for (int iY = 0; iY < 10; iY++)
+    		for (int iY = BOARDERSTART; iY < 10; iY++)
     		{
     			world.add(new Location (iX, iY), new Rock(Color.ORANGE));	
     			world.add(new Location (iY, iX), new Rock(Color.ORANGE));	
