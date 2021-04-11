@@ -31,15 +31,17 @@ public class Pawn extends Piece
 		ArrayList<Location> moves = new ArrayList<Location>();
 		ArrayList<Actor> pieces = getGrid().getNeighbors(current);
 		
+		//if the pawn is white
 		if(getSide())
 		{
 			for(int iCounter = 0; iCounter < pieces.size(); iCounter++)
 			{
+				//checks if there is a piece directly in front of the pawn
 				if((pieces.get(iCounter).getLocation().getCol() == y) && (pieces.get(iCounter).getLocation().getRow() == x - 1))
 				{
 					bNorm = false;
 				}
-			
+				//checks if there if there are any pieces that could be captured by the pawn
 				else if((pieces.get(iCounter).getLocation().getCol() == y + 1 || pieces.get(iCounter).getLocation().getCol() == y - 1) && pieces.get(iCounter).getLocation().getRow() == x - 1)
 				{
 					if((pieces.get(iCounter).getLocation().getCol() == 0) || (pieces.get(iCounter).getLocation().getRow() == 9) || (pieces.get(iCounter).getLocation().getCol() == 9) || (pieces.get(iCounter).getLocation().getRow() == 0) || (pieces.get(iCounter).getColor().equals(this.getColor())))
@@ -62,17 +64,18 @@ public class Pawn extends Piece
 			System.out.println("Valid move locations are:");
 			System.out.println(moves);
 		}
-	
+		
+		//if the pawn is black
 		else
 		{
-			
 			for(int iCounter = 0; iCounter < pieces.size(); iCounter++)
 			{
+				//checks if there is a piece directly in front of the pawn
 				if((pieces.get(iCounter).getLocation().getCol() == y) && (pieces.get(iCounter).getLocation().getRow() == x + 1))
 				{
 					bNorm = false;
 				}
-		
+				//checks if there if there are any pieces that could be captured by the pawn
 				else if((pieces.get(iCounter).getLocation().getCol() == y + 1 || pieces.get(iCounter).getLocation().getCol() == y - 1) && pieces.get(iCounter).getLocation().getRow() == x + 1)
 				{
 					if((pieces.get(iCounter).getLocation().getCol() == 0) || (pieces.get(iCounter).getLocation().getRow() == 9) || (pieces.get(iCounter).getLocation().getCol() == 9) || (pieces.get(iCounter).getLocation().getRow() == 0) || (pieces.get(iCounter).getColor().equals(this.getColor())))
