@@ -87,7 +87,7 @@ public class Critter extends Actor
      */
     public ArrayList<Location> getMoveLocations()
     {
-        return getGrid().getEmptyAdjacentLocations(getLocation());
+        return getGrid().getEmptyAdjacentLocations(getLocation()); //Can I change this to the list moves method? Or the three methods below?
     }
 
     /**

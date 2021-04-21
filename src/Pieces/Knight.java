@@ -23,6 +23,8 @@ public class Knight extends Piece
 		int row = current.getRow();
 		ArrayList<Location> moves = new ArrayList<Location>();
 		ArrayList<Location> validMoves = new ArrayList<Location>();
+		ArrayList<Location> occupied = gr.getOccupiedLocations();
+		boolean bFriendly;
 		
 		moves.add(new Location(row + 2, col + 1));
 		moves.add(new Location(row + 1, col + 2));
@@ -35,10 +37,21 @@ public class Knight extends Piece
 		
 		for (int iCounter = 0; iCounter < moves.size(); iCounter++)
 		{
-			if(moves.get(iCounter).getRow() < 9 && moves.get(iCounter).getRow() > 0 && moves.get(iCounter).getCol() < 9 && moves.get(iCounter).getCol() > 0)
+			bFriendly = false;
+			if(moves.get(iCounter).getRow() < 8 && moves.get(iCounter).getRow() > 0 && moves.get(iCounter).getCol() < 8 && moves.get(iCounter).getCol() > 0)
 			{
-				System.out.println(moves.get(iCounter).getRow());
-				validMoves.add(moves.get(iCounter));
+				for(int iCount = 0; iCount < occupied.size(); iCount++)
+				{
+					if (gr.get(occupied.get(iCount)).getColor().equals(this.getColor()))
+					{
+						bFriendly = true;
+						iCount = occupied.size();
+					}
+				}
+				if(bFriendly)
+				{
+					validMoves.add(moves.get(iCounter));
+				}
 			}
 		}
 		System.out.println("Valid move locations are:");

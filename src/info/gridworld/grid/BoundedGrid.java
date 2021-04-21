@@ -21,6 +21,8 @@ package info.gridworld.grid;
 
 import java.util.ArrayList;
 
+import info.gridworld.actor.Actor;
+
 /**
  * A <code>BoundedGrid</code> is a rectangular grid with a finite number of
  * rows and columns. <br />
