@@ -1,5 +1,6 @@
 package Pieces;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.Bug;
@@ -7,8 +8,9 @@ import info.gridworld.actor.Critter;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
-public class Piece extends Critter
+abstract class Piece extends Critter
 {
+	protected abstract ArrayList<Location> listValidMoves();
 	
 	private boolean bWhite;
 	
@@ -48,12 +50,14 @@ public class Piece extends Critter
 		if(canMove(move))
 		{
 			moveTo(move);
+			Board.check(bWhite);
 		}
 		
 		else
 		{
 			System.out.println("Invalid Move");
 		}	
+		
 	}
 	
 	/**
@@ -61,7 +65,6 @@ public class Piece extends Critter
 	 * @param space the given location
 	 * @return returns true if possible and false if not
 	 */
-	//Can I make use of this method for the subclasses if I need to pass in the arraylist of valid moves in order for it to work?
 	public boolean canMove(Location space)
 	{
 		Grid<Actor> gr = getGrid();
@@ -75,6 +78,15 @@ public class Piece extends Critter
 			return false;
 		}
 		
-		return true;
+		ArrayList<Location> moves = listValidMoves();
+		for(int iCounter = 0; iCounter < moves.size(); iCounter++)
+		{
+			if (moves.get(iCounter).equals(space))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
+	
 }
