@@ -104,6 +104,10 @@ public class Board
     	world.show();
     }
     
+    /**
+     * Check if the opposing sides king is in check, and if so prints it to the console
+     * @param bWhite signifies which side made the most current move
+     */
     public static void check(boolean bWhite)
     {
     	ArrayList<Location> check = new ArrayList<Location>();
@@ -111,8 +115,6 @@ public class Board
     	if(bWhite)
     	{
     		Location kingLoc = blackPieces.get(blackPieces.size() - 1).getLocation();
-    		
-    		System.out.println(kingLoc.getCol() + " " + kingLoc.getRow());
     		
     		for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
     		{
@@ -148,9 +150,56 @@ public class Board
     			}
     		}
     	}
-    	
-    	
     }
+    
+    //still in progress/ one of the more difficult methods to write because of everything that needs to be checked
+  /*  public static void checkmate(boolean bWhite)
+    {
+    	ArrayList<Location> check = new ArrayList<Location>();
+    	ArrayList<Location> kingLocs = new ArrayList<Location>();
+    	
+    	if(bWhite)
+    	{
+    		kingLocs.add(blackPieces.get(blackPieces.size() - 1).getLocation());
+    		kingLocs.addAll(blackPieces.get(blackPieces.size() -1).getMoveLocations());
+    		
+    		for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
+    		{
+    			check.addAll(whitePieces.get(iIndex).listValidMoves());
+    		}
+    		
+    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
+    		{
+    			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
+    			{
+    				if(check.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && check.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
+        			{
+        				kingLocs.remove(iIndex);
+        			}
+    			}
+    		}
+    		System.out.println("" + kingLocs.size());
+    	}
+    	
+    	else
+    	{
+    		Location kingLoc = whitePieces.get(whitePieces.size() - 1).getLocation();
+    		
+    		for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
+    		{
+    			check.addAll(blackPieces.get(iIndex).listValidMoves());
+    		}
+    		
+    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
+    		{
+    			if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
+    			{
+    				System.out.println("Player 1 King is in Check");
+    				iCounter = check.size();
+    			}
+    		}
+    	}
+    }*/
     
     /**
      * Prompts user with menu to start new game customize or end
