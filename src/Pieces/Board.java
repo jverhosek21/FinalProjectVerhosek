@@ -16,10 +16,6 @@ public class Board
 	private static ArrayList<Piece> whitePieces;
 	private static ArrayList<Piece> blackPieces;
 	
-    public static void main(String[] args)
-    {
-        gameOver();   
-    }
     
     /**
      * Sets board up with boarder and pieces in the correct spot
@@ -29,15 +25,15 @@ public class Board
     	ActorWorld world = new ActorWorld();
     	
     	boolean bWhite = false;
-    	for (int iX = 1; iX < 10; iX+=5)
+    	for (int iRow = 1; iRow < 10; iRow += 5)
     	{
-    		if(iX == 6)
+    		if(iRow == 6)
     		{
     			bWhite = true;
     		}
-    		for (int iY = 0; iY < 8; iY++)
+    		for (int iCol = 0; iCol < 8; iCol++)
     		{
-    			world.add(new Location (iX, iY), new Pawn(bWhite));
+    			world.add(new Location (iRow, iCol), new Pawn(bWhite));
     		}
     	}
     	
@@ -153,7 +149,7 @@ public class Board
     }
     
     //still in progress/ one of the more difficult methods to write because of everything that needs to be checked
-  /*  public static void checkmate(boolean bWhite)
+    public static void checkmate(boolean bWhite)
     {
     	ArrayList<Location> check = new ArrayList<Location>();
     	ArrayList<Location> kingLocs = new ArrayList<Location>();
@@ -178,12 +174,19 @@ public class Board
         			}
     			}
     		}
-    		System.out.println("" + kingLocs.size());
+    		
+    		if(kingLocs.size() == 0)
+    		{
+    			System.out.println("CHECKMATE: PLAYER 1 WINS");
+    			Board.gameOver();
+    		}
+    			
     	}
     	
     	else
     	{
-    		Location kingLoc = whitePieces.get(whitePieces.size() - 1).getLocation();
+    		kingLocs.add(whitePieces.get(whitePieces.size() - 1).getLocation());
+    		kingLocs.addAll(whitePieces.get(whitePieces.size() -1).getMoveLocations());
     		
     		for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
     		{
@@ -192,21 +195,30 @@ public class Board
     		
     		for(int iCounter = 0; iCounter < check.size(); iCounter++)
     		{
-    			if(check.get(iCounter).getRow() == kingLoc.getRow() && check.get(iCounter).getCol() == kingLoc.getCol())
+    			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
     			{
-    				System.out.println("Player 1 King is in Check");
-    				iCounter = check.size();
+    				if(check.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && check.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
+        			{
+        				kingLocs.remove(iIndex);
+        			}
     			}
     		}
+    		
+    		if(kingLocs.size() == 0)
+    		{
+    			System.out.println("CHECKMATE: PLAYER 2 WINS");
+    			Board.gameOver();
+    		}
+    		
     	}
-    }*/
+    }
     
     /**
      * Prompts user with menu to start new game customize or end
      */
     public static void gameOver()
     {
-    	System.out.println("Enter 1 to begin the game.");
+    	System.out.println("Enter 1 to begin new game.");
     	System.out.println("Enter 2 to customize piece and boarder color.");
     	System.out.println("Enter 3 to exit.");
         Scanner scInput = new Scanner(System.in);
@@ -214,7 +226,6 @@ public class Board
         if (tester == 1)
         {
         	setBoard();
-        	System.out.println("Enter 2 to end the game.");
             int end = scInput.nextInt();
             if (end == 2 )
             {
