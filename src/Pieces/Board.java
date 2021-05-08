@@ -11,8 +11,6 @@ import java.util.Scanner;
 public class Board
 {
 
-	private final static int BOARDERSTART = 0;
-	private final static int BOARDEREND = 9;
 	private static ArrayList<Piece> whitePieces;
 	private static ArrayList<Piece> blackPieces;
 	
@@ -20,7 +18,7 @@ public class Board
     /**
      * Sets board up with boarder and pieces in the correct spot
      */
-    public static void setBoard()
+    public void setBoard()
     {
     	ActorWorld world = new ActorWorld();
     	
@@ -148,7 +146,7 @@ public class Board
     	}
     }
     
-    //still in progress/ one of the more difficult methods to write because of everything that needs to be checked
+    //updated, but still not checking for instance where the checkmate can be blocked by another piece (still trying to figure this out)
     public static void checkmate(boolean bWhite)
     {
     	ArrayList<Location> check = new ArrayList<Location>();
@@ -178,7 +176,6 @@ public class Board
     		if(kingLocs.size() == 0)
     		{
     			System.out.println("CHECKMATE: PLAYER 1 WINS");
-    			Board.gameOver();
     		}
     			
     	}
@@ -207,30 +204,9 @@ public class Board
     		if(kingLocs.size() == 0)
     		{
     			System.out.println("CHECKMATE: PLAYER 2 WINS");
-    			Board.gameOver();
     		}
     		
     	}
     }
     
-    /**
-     * Prompts user with menu to start new game customize or end
-     */
-    public static void gameOver()
-    {
-    	System.out.println("Enter 1 to begin new game.");
-    	System.out.println("Enter 2 to customize piece and boarder color.");
-    	System.out.println("Enter 3 to exit.");
-        Scanner scInput = new Scanner(System.in);
-        int tester = scInput.nextInt();
-        if (tester == 1)
-        {
-        	setBoard();
-            int end = scInput.nextInt();
-            if (end == 2 )
-            {
-            	gameOver();
-            }
-        }
-    }
 }
