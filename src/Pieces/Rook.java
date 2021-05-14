@@ -46,9 +46,9 @@ public class Rook extends Piece
 	 * Constructor
 	 * @param b calls the parent class constructor
 	 */
-	public Rook(boolean b)
+	public Rook(boolean b, Color c)
 	{
-		super (b);
+		super (b, c);
 	}
 	
 	/**

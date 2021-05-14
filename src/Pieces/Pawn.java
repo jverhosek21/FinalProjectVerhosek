@@ -13,9 +13,9 @@ public class Pawn extends Piece
 	 * Constructor
 	 * @param b calls the parent class constructor
 	 */
-	public Pawn(boolean b)
+	public Pawn(boolean b, Color c)
 	{
-		super(b);
+		super (b, c);
 	}
 	
 	/**

@@ -48,9 +48,9 @@ public class Bishop extends Piece
 	 * Constructor
 	 * @param b calls the parent class constructor
 	 */
-	public Bishop(boolean b)
+	public Bishop(boolean b, Color c)
 	{
-		super (b);
+		super (b, c);
 	}
 	
 	/**

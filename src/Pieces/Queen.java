@@ -47,9 +47,9 @@ public class Queen extends Piece
 	 * Constructor
 	 * @param b calls the parent class constructor
 	 */
-	public Queen(boolean b)
+	public Queen(boolean b, Color c)
 	{
-		super (b);
+		super (b, c);
 	}
 	
 	/**

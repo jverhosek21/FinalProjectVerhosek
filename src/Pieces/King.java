@@ -13,9 +13,9 @@ public class King extends Piece
 	 * Constructor
 	 * @param b calls the parent class constructor
 	 */
-	public King(boolean b)
+	public King(boolean b, Color c)
 	{
-		super (b);
+		super (b, c);
 	}
 	
 	/**

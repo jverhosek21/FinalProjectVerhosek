@@ -13,24 +13,18 @@ abstract class Piece extends Critter
 	protected abstract ArrayList<Location> listValidMoves();
 	
 	private boolean bWhite;
+	private Color cPlayer;
 	
 	/**
 	 * Creates a new instance of the piece class
 	 * @param bWhite parameter to set the piece color
 	 */
-	public Piece(boolean pbWhite)
+	public Piece(boolean player1 , Color pPlayer)
 	{
-		bWhite = pbWhite;
+		bWhite = player1;
+		cPlayer = pPlayer;
 		
-		if(bWhite)
-		{
-			setColor(Color.WHITE);
-		}
-		
-		else
-		{
-			setColor(Color.BLACK);
-		}
+		setColor(cPlayer);
 	}
 	
 	public boolean getSide()

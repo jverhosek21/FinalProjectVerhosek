@@ -13,7 +13,20 @@ public class Board
 
 	private static ArrayList<Piece> whitePieces;
 	private static ArrayList<Piece> blackPieces;
+	private Color player1;
+	private Color player2;
 	
+	public Board ()
+	{
+		player1 = Color.WHITE;
+		player2 = Color.BLACK;
+	}
+	
+	public Board (Color cP1, Color cP2)
+	{
+		player1 = cP1;
+		player2 = cP2;
+	}
     
     /**
      * Sets board up with boarder and pieces in the correct spot
@@ -22,30 +35,23 @@ public class Board
     {
     	ActorWorld world = new ActorWorld();
     	
-    	boolean bWhite = false;
-    	for (int iRow = 1; iRow < 10; iRow += 5)
-    	{
-    		if(iRow == 6)
-    		{
-    			bWhite = true;
-    		}
-    		for (int iCol = 0; iCol < 8; iCol++)
-    		{
-    			world.add(new Location (iRow, iCol), new Pawn(bWhite));
-    		}
-    	}
+    	boolean bWhite = true;
     	
-    	bWhite = true;
+    	for (int iCol = 0; iCol < 8; iCol++)
+		{
+			world.add(new Location (6, iCol), new Pawn(bWhite, player1));
+		}
+    	
     	whitePieces = new ArrayList<Piece>();
     	
-    	Rook rook1 = new Rook(bWhite);
-    	Rook rook2 = new Rook(bWhite);
-    	Knight knight1 = new Knight(bWhite);
-    	Knight knight2 = new Knight(bWhite);  	
-    	Bishop bishop1 = new Bishop(bWhite);
-    	Bishop bishop2 = new Bishop(bWhite);
-    	Queen queen = new Queen(bWhite);
-    	King king = new King(bWhite);
+    	Rook rook1 = new Rook(bWhite, player1);
+    	Rook rook2 = new Rook(bWhite, player1);
+    	Knight knight1 = new Knight(bWhite, player1);
+    	Knight knight2 = new Knight(bWhite, player1);  	
+    	Bishop bishop1 = new Bishop(bWhite, player1);
+    	Bishop bishop2 = new Bishop(bWhite, player1);
+    	Queen queen = new Queen(bWhite, player1);
+    	King king = new King(bWhite, player1);
     	
     	whitePieces.add(rook1);
     	whitePieces.add(rook2);
@@ -67,16 +73,22 @@ public class Board
     	
     	
     	bWhite = false;
+    	
+    	for (int iCol = 0; iCol < 8; iCol++)
+    	{
+    		world.add(new Location (1, iCol), new Pawn(bWhite, player2));
+    	}
+    	
     	blackPieces = new ArrayList<Piece>();
     	
-    	Rook rook3 = new Rook(bWhite);
-    	Rook rook4 = new Rook(bWhite);
-    	Knight knight3 = new Knight(bWhite);
-    	Knight knight4 = new Knight(bWhite);  	
-    	Bishop bishop3 = new Bishop(bWhite);
-    	Bishop bishop4 = new Bishop(bWhite);
-    	Queen queen2 = new Queen(bWhite);
-    	King king2 = new King(bWhite);
+    	Rook rook3 = new Rook(bWhite, player2);
+    	Rook rook4 = new Rook(bWhite, player2);
+    	Knight knight3 = new Knight(bWhite, player2);
+    	Knight knight4 = new Knight(bWhite, player2);  	
+    	Bishop bishop3 = new Bishop(bWhite, player2);
+    	Bishop bishop4 = new Bishop(bWhite, player2);
+    	Queen queen2 = new Queen(bWhite, player2);
+    	King king2 = new King(bWhite, player2);
     	
     	blackPieces.add(rook3);
     	blackPieces.add(rook4);
@@ -149,24 +161,27 @@ public class Board
     //updated, but still not checking for instance where the checkmate can be blocked by another piece (still trying to figure this out)
     public static void checkmate(boolean bWhite)
     {
-    	ArrayList<Location> check = new ArrayList<Location>();
+    	ArrayList<Location> posMoves = new ArrayList<Location>();
     	ArrayList<Location> kingLocs = new ArrayList<Location>();
     	
     	if(bWhite)
     	{
+    		//gets location of the black king piece
     		kingLocs.add(blackPieces.get(blackPieces.size() - 1).getLocation());
+    		//gets all possible move locations of the king
     		kingLocs.addAll(blackPieces.get(blackPieces.size() -1).getMoveLocations());
     		
+    		//gets all valid moves of the white pieces
     		for(int iIndex = 0; iIndex < whitePieces.size(); iIndex++)
     		{
-    			check.addAll(whitePieces.get(iIndex).listValidMoves());
+    			posMoves.addAll(whitePieces.get(iIndex).listValidMoves());
     		}
     		
-    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
+    		for(int iCounter = 0; iCounter < posMoves.size(); iCounter++)
     		{
     			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
     			{
-    				if(check.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && check.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
+    				if(posMoves.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && posMoves.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
         			{
         				kingLocs.remove(iIndex);
         			}
@@ -187,14 +202,14 @@ public class Board
     		
     		for(int iIndex = 0; iIndex < blackPieces.size(); iIndex++)
     		{
-    			check.addAll(blackPieces.get(iIndex).listValidMoves());
+    			posMoves.addAll(blackPieces.get(iIndex).listValidMoves());
     		}
     		
-    		for(int iCounter = 0; iCounter < check.size(); iCounter++)
+    		for(int iCounter = 0; iCounter < posMoves.size(); iCounter++)
     		{
     			for(int iIndex = 0; iIndex < kingLocs.size(); iIndex++)
     			{
-    				if(check.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && check.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
+    				if(posMoves.get(iCounter).getRow() == kingLocs.get(iIndex).getRow() && posMoves.get(iCounter).getCol() == kingLocs.get(iIndex).getCol())
         			{
         				kingLocs.remove(iIndex);
         			}

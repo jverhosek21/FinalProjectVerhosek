@@ -10,9 +10,9 @@ import info.gridworld.grid.Location;
 public class Knight extends Piece
 {
 	
-	public Knight (boolean b)
+	public Knight(boolean b, Color c)
 	{
-		super (b);
+		super (b, c);
 	}
 	
 	public ArrayList<Location> listValidMoves()
